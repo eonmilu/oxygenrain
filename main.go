@@ -2,16 +2,11 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 
 	"github.com/eonmilu/goyt"
-
 	"github.com/gorilla/mux"
-	_ "github.com/lib/pq"
 )
 
 const (
@@ -23,41 +18,33 @@ const (
 	KeyPath = "/etc/letsencrypt/archive/oxygenrain.com/privkey1.pem"
 	// RootDomain : A-record of the domain
 	RootDomain = "oxygenrain.com"
-	// ConfigPath : path to the user, password and database
-	ConfigPath = "/etc/postgresql/dietpi.cfg"
+)
+
+const (
+	authTokenURL   = "https://www.googleapis.com/oauth2/v3/tokeninfo?"
+	googleclientID = "817145568720-9p70ci9se6tpvn4qh9vbldh16gssfs3v.apps.googleusercontent.com"
 )
 
 var (
-	// DBInfo contains the credentials needed to access the database encoded in JSON
-	dbinfo string
 	// DB is the database object representing the Your Time database
-	DB *sql.DB
-	// DBCfg is a struct containing the raw credentials
-	dbcfg struct {
-		User     string
-		Password string
-		Database string
-	}
-	yourtime = goyt.YourTime{
-		AuthTokenURL:   "https://www.googleapis.com/oauth2/v3/tokeninfo?",
-		GoogleClientID: "817145568720-9p70ci9se6tpvn4qh9vbldh16gssfs3v.apps.googleusercontent.com",
-		DB:             DB,
-	}
+	DB       *sql.DB
+	yourtime goyt.YourTime
 )
 
 func init() {
-	raw, err := ioutil.ReadFile(ConfigPath)
+	cfg := dbcfg{}
+	err := cfg.getDbCredentials()
 	if err != nil {
 		log.Panic(err)
 	}
-	err = json.Unmarshal(raw, &dbcfg)
+	DB, err := connectDb(cfg)
 	if err != nil {
 		log.Panic(err)
 	}
-	dbinfo = fmt.Sprintf("user=%s password=%s dbname=%s", dbcfg.User, dbcfg.Password, dbcfg.Database)
-	DB, err = sql.Open("postgres", dbinfo)
-	if err != nil {
-		log.Panic(err)
+	yourtime = goyt.YourTime{
+		AuthTokenURL:   authTokenURL,
+		GoogleClientID: googleclientID,
+		DB:             DB,
 	}
 }
 
