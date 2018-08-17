@@ -13,7 +13,16 @@ function onSignIn(googleUser) {
         },
         timeout: DEFAULT_TIMEOUT
     }).done((response) => {
-        Cookies.set("yourtime-token", response);
+        // Host only cookie
+        Cookies.set("yourtime-token-local", response, {
+            domain: "",
+            expires: 50 * 365,
+        });
+        // Normal cookie
+        Cookies.set("yourtime-token-server", response, {
+            domain: "oxygenrain.com",
+            expires: 50 * 365,
+        });
     }).fail((jqXHR, textStatus, error) => {
         console.log(error);
         console.log(jqXHR);
@@ -25,5 +34,8 @@ function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.');
+        Cookies.remove("yourtime-token", {
+            path: ""
+        });
     });
 }
