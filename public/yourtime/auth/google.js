@@ -13,20 +13,18 @@ function onSignIn(googleUser) {
         },
         timeout: DEFAULT_TIMEOUT
     }).done((response) => {
-        // Host only cookie
-        Cookies.set("yourtime-token-local", response, {
-            domain: "",
-            expires: 50 * 365,
-        });
+        // Set response on a meta tag for the oxygenrain content script to read
+        $("<meta/>", {
+            name: "your-time-token-local",
+            content: response
+        }).appendTo("head");
         // Normal cookie
         Cookies.set("yourtime-token-server", response, {
             domain: "oxygenrain.com",
             expires: 50 * 365,
         });
     }).fail((jqXHR, textStatus, error) => {
-        console.log(error);
-        console.log(jqXHR);
-        console.log(textStatus);
+        console.log(error, jqXHR, textStatus);
     });
 }
 
