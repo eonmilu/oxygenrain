@@ -13,10 +13,14 @@ function onSignIn(googleUser) {
         },
         timeout: DEFAULT_TIMEOUT
     }).done((response) => {
+        metaContent = JSON.stringify({
+            username: getUsername(),
+            token: response,
+        });
         // Set response on a meta tag for the oxygenrain content script to read
         $("<meta/>", {
             name: "your-time-token-local",
-            content: response
+            content: metaContent
         }).appendTo("head");
         // Normal cookie
         Cookies.set("yourtime-token-server", response, {
@@ -26,6 +30,13 @@ function onSignIn(googleUser) {
     }).fail((jqXHR, textStatus, error) => {
         console.log(error, jqXHR, textStatus);
     });
+
+    function getUsername() {
+        const profile = googleUser.getBasicProfile();
+        const username = profile.getName();
+
+        return username;
+    }
 }
 
 function signOut() {
