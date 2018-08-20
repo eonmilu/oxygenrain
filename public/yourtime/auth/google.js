@@ -46,5 +46,7 @@ function signOut() {
         Cookies.remove("yourtime-token", {
             path: ""
         });
+    }, function (error) {
+        console.log("Unable to sign out");
     });
 }
