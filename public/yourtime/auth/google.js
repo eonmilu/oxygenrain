@@ -2,6 +2,7 @@ const TOKEN_AUTH_URL = "https://oxygenrain.com/yourtime/auth/token";
 const DEFAULT_TIMEOUT = 1500;
 
 function onSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile();
     var idToken = googleUser.getAuthResponse().id_token;
 
     $.ajax({
@@ -9,12 +10,13 @@ function onSignIn(googleUser) {
         url: TOKEN_AUTH_URL,
         contentType: "application/x-www-form-urlencoded",
         data: {
-            idtoken: idToken
+            idtoken: idToken,
         },
         timeout: DEFAULT_TIMEOUT
     }).done((response) => {
+        // TODO: check the response to see if it is any status code
         metaContent = JSON.stringify({
-            username: getUsername(),
+            username: profile.getName(),
             token: response,
         });
         // Set response on a meta tag for the oxygenrain content script to read
@@ -30,13 +32,6 @@ function onSignIn(googleUser) {
     }).fail((jqXHR, textStatus, error) => {
         console.log(error, jqXHR, textStatus);
     });
-
-    function getUsername() {
-        const profile = googleUser.getBasicProfile();
-        const username = profile.getName();
-
-        return username;
-    }
 }
 
 function signOut() {
