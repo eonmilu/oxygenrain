@@ -11,7 +11,7 @@ import (
 
 const (
 	// ConfigPath : path to the user, password and database
-	ConfigPath = "/etc/postgresql/dietpi.cfg"
+	ConfigPath = "/etc/postgresql/yourtime.cfg"
 )
 
 type dbcfg struct {
