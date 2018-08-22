@@ -1,5 +1,5 @@
-const AUTH_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/token";
-const REMOVE_TOKEN_URL
+const VALIDATE_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/validate";
+const REMOVE_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/remove"
 const DEFAULT_TIMEOUT = 1500;
 
 function onSignIn(googleUser) {
@@ -8,7 +8,7 @@ function onSignIn(googleUser) {
 
     $.ajax({
         method: "POST",
-        url: AUTH_TOKEN_URL,
+        url: VALIDATE_TOKEN_URL,
         contentType: "application/x-www-form-urlencoded",
         data: {
             idtoken: idToken,

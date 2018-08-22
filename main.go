@@ -59,7 +59,9 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/yourtime/search", yourtime.Search)
 	r.HandleFunc("/yourtime/insert", yourtime.Insert)
-	r.HandleFunc("/yourtime/auth/token", yourtime.Auth)
+	r.HandleFunc("/yourtime/auth/validate", yourtime.ValidateAuth)
+	r.HandleFunc("/yourtime/auth/remove", yourtime.RemoveAuth)
+
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(FilePath)))
 
 	log.Panic(http.ListenAndServeTLS(":8443", CertPath, KeyPath, r))
