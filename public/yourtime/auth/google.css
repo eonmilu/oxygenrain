@@ -1,0 +1,26 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+#title {
+    font-size: 400%;
+    padding-left: 3%;
+}
+
+#description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#id {
+
+}
+
+#wrapper {
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #AF0000;
+    padding: 3%;
+    width: 75%;
+}

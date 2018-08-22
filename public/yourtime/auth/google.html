@@ -7,14 +7,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Your Time Google Sign-In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="google.css" />
 </head>
 
 <body>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <a href="#" onclick="onSignOut();">Sign out</a>
+    <div style="display:flex;justify-content:center;align-items:center;">
+        <div id="wrapper">
+            <div id="main" style="display:flex;justify-content:center;align-items:center;">
+                <img src="logo.svg" alt="Logo" width="10%" height="10%">
+                <h1 id="title">Your Time: Anti Clickbait</h1>
+            </div>
+            <span id="description">A web extension that shows community-submitted, important timemarks on YouTube videos.</span>
+            <div style="display:flex;justify-content:center;align-items:center;">
+                <div id="signout" href="#" onclick="onSignOut();">Sign out</div>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <!-- <div style="background-color: grey; height: 36px; width: 120px;"> </div> -->
+            </div>
+        </div>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     <script async defer src="https://apis.google.com/js/platform.js"></script>
     <script async defer src="google.js"></script>
