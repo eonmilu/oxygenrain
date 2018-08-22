@@ -50,8 +50,6 @@ function onSignIn(googleUser) {
 function onSignOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-        const token = Cookies.get("yourtime-token-server");
-
         Cookies.remove("yourtime-token-server", {
             path: ""
         });
@@ -65,9 +63,6 @@ function onSignOut() {
             method: "POST",
             url: REMOVE_TOKEN_URL,
             contentType: "application/x-www-form-urlencoded",
-            data: {
-                idtoken: token,
-            },
             timeout: DEFAULT_TIMEOUT
         }).then((content) => {
             if (content == STATUS_CODE.OK) {
