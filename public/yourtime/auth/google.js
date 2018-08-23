@@ -10,6 +10,8 @@ const STATUS_CODE = {
 };
 
 
+$("#signout").prop("disabled", true);
+
 function onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
     var idToken = googleUser.getAuthResponse().id_token;
@@ -42,7 +44,9 @@ function onSignIn(googleUser) {
             domain: "oxygenrain.com",
             expires: 50 * 365,
         });
+        $("#signout").prop("disabled", false);
     }).fail((jqXHR, textStatus, error) => {
+        $("#signout").prop("disabled", true);
         console.log(error, jqXHR, textStatus);
     });
 }
@@ -67,13 +71,17 @@ function onSignOut() {
         }).then((content) => {
             if (content == STATUS_CODE.OK) {
                 console.log("Sign out successful")
+                $("#signout").prop("disabled", true);
             } else {
+                $("#signout").prop("disabled", false);
                 console.log(`Unable to delete token from server. Error: ${content}`);
             }
         }).fail((error) => {
+            $("#signout").prop("disabled", false);
             console.log(`Unable to delete token from server. Error: ${error}`);
         });
     }, function (error) {
+        $("#signout").prop("disabled", false);
         console.log(`Unable to sign out: ${error}`);
     });
 }

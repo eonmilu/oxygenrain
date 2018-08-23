@@ -13,8 +13,47 @@ body {
     align-items: center;
 }
 
-#id {
+.btn-light {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
 
+.btn-light:enabled:hover {
+    color: #212529;
+    background-color: #cccccc;
+    border-color: #cccccc;
+}
+
+.btn-light:disabled {
+    color: #949494;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#signout {
+    margin-left: 1%;
+    margin-right: 1%;
 }
 
 #wrapper {
