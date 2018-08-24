@@ -24,12 +24,12 @@ function onSignIn(googleUser) {
             idtoken: idToken,
         },
         timeout: DEFAULT_TIMEOUT
-    }).done((response, textStatus, jqXHR) => {
+    }).done((response) => {
         if (response != STATUS_CODE.OK) {
             console.log(`Unable to sign in. Response: ${response}`)
             return
         }
-        const token = jqXHR.getResponseHeader("set-cookie").match(/(yourtime-token-server=)([^;]*)/)[1];
+        const token = Cookies.get("yourtime-token-server");
 
         metaContent = JSON.stringify({
             username: profile.getName(),
