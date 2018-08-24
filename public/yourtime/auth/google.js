@@ -24,26 +24,22 @@ function onSignIn(googleUser) {
             idtoken: idToken,
         },
         timeout: DEFAULT_TIMEOUT
-    }).done((response) => {
-        // TODO: check the response to see if it is any status code
-        if (isStatusCode(response)) {
-            console.log(`Unable to sign in. Status Code: ${response}`)
+    }).done((response, textStatus, jqXHR) => {
+        if (response != STATUS_CODE.OK) {
+            console.log(`Unable to sign in. Response: ${response}`)
             return
         }
+        const token = jqXHR.getResponseHeader("set-cookie").match(/(yourtime-token-server=)([^;]*)/)[1];
+
         metaContent = JSON.stringify({
             username: profile.getName(),
-            token: response,
+            token: token,
         });
         // Set response on a meta tag for the oxygenrain content script to read
         $("<meta/>", {
             name: "your-time-token-local",
             content: metaContent
         }).appendTo("head");
-        // Normal cookie
-        Cookies.set("yourtime-token-server", response, {
-            domain: "oxygenrain.com",
-            expires: 50 * 365,
-        });
         $("#signout").prop("disabled", false);
     }).fail((jqXHR, textStatus, error) => {
         $("#signout").prop("disabled", true);
@@ -54,9 +50,6 @@ function onSignIn(googleUser) {
 function onSignOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-        Cookies.remove("yourtime-token-server", {
-            path: ""
-        });
         // Tell content script to remove the storage
         $("<meta/>", {
             name: "your-time-token-local-remove",
@@ -84,8 +77,4 @@ function onSignOut() {
         $("#signout").prop("disabled", false);
         console.log(`Unable to sign out: ${error}`);
     });
-}
-
-function isStatusCode(response) {
-    return response.length <= 3;
 }
