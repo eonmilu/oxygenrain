@@ -59,6 +59,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/yourtime/search", yourtime.Search)
 	r.HandleFunc("/yourtime/insert", yourtime.Insert)
+	r.HandleFunc("/yourtime/votes", yourtime.Votes)
 	r.HandleFunc("/yourtime/auth/validate", yourtime.ValidateAuth)
 	r.HandleFunc("/yourtime/auth/remove", yourtime.RemoveAuth)
 
