@@ -57,11 +57,11 @@ func main() {
 		log.Printf("REDIRECT %s FROM %s TO %s", r.RemoteAddr, "http://"+target, "https://"+target)
 	}))
 	r := mux.NewRouter()
-	r.HandleFunc("/yourtime/search", yourtime.Search)
-	r.HandleFunc("/yourtime/insert", yourtime.Insert)
-	r.HandleFunc("/yourtime/votes", yourtime.Votes)
-	r.HandleFunc("/yourtime/auth/validate", yourtime.ValidateAuth)
-	r.HandleFunc("/yourtime/auth/remove", yourtime.RemoveAuth)
+	r.HandleFunc("/yourtime/search", yourtime.CreateUsers(yourtime.Search))
+	r.HandleFunc("/yourtime/insert", yourtime.CreateUsers(yourtime.Insert))
+	r.HandleFunc("/yourtime/votes", yourtime.CreateUsers(yourtime.Votes))
+	r.HandleFunc("/yourtime/auth/validate", yourtime.CreateUsers(yourtime.ValidateAuth))
+	r.HandleFunc("/yourtime/auth/remove", yourtime.CreateUsers(yourtime.RemoveAuth))
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(FilePath)))
 
