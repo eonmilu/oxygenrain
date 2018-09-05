@@ -12,6 +12,7 @@ const STATUS_CODE = {
 
 $("#signout").prop("disabled", true);
 
+// TODO: delete token serverside if the user changes account without clicking signOut
 function onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
     var idToken = googleUser.getAuthResponse().id_token;

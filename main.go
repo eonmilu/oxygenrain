@@ -51,18 +51,19 @@ func init() {
 func main() {
 	defer DB.Close()
 	// Redirect the incoming HTTP request to HTTPS
-	go http.ListenAndServe(":8080", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	go http.ListenAndServe(":80", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		target := RootDomain + r.URL.RequestURI()
 		http.Redirect(w, r, "https://"+target, http.StatusMovedPermanently)
 		log.Printf("REDIRECT %s FROM %s TO %s", r.RemoteAddr, "http://"+target, "https://"+target)
 	}))
 	r := mux.NewRouter()
-	r.HandleFunc("/yourtime/search", yourtime.Search)
-	r.HandleFunc("/yourtime/insert", yourtime.Insert)
-	r.HandleFunc("/yourtime/auth/validate", yourtime.ValidateAuth)
-	r.HandleFunc("/yourtime/auth/remove", yourtime.RemoveAuth)
+	r.HandleFunc("/yourtime/search", yourtime.CreateUsers(yourtime.Search))
+	r.HandleFunc("/yourtime/insert", yourtime.CreateUsers(yourtime.Insert))
+	r.HandleFunc("/yourtime/votes", yourtime.CreateUsers(yourtime.Votes))
+	r.HandleFunc("/yourtime/auth/validate", yourtime.CreateUsers(yourtime.ValidateAuth))
+	r.HandleFunc("/yourtime/auth/remove", yourtime.CreateUsers(yourtime.RemoveAuth))
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(FilePath)))
 
-	log.Panic(http.ListenAndServeTLS(":8443", CertPath, KeyPath, r))
+	log.Panic(http.ListenAndServeTLS(":443", CertPath, KeyPath, r))
 }
