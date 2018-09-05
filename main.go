@@ -51,7 +51,7 @@ func init() {
 func main() {
 	defer DB.Close()
 	// Redirect the incoming HTTP request to HTTPS
-	go http.ListenAndServe(":8080", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	go http.ListenAndServe(":80", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		target := RootDomain + r.URL.RequestURI()
 		http.Redirect(w, r, "https://"+target, http.StatusMovedPermanently)
 		log.Printf("REDIRECT %s FROM %s TO %s", r.RemoteAddr, "http://"+target, "https://"+target)
@@ -65,5 +65,5 @@ func main() {
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(FilePath)))
 
-	log.Panic(http.ListenAndServeTLS(":8443", CertPath, KeyPath, r))
+	log.Panic(http.ListenAndServeTLS(":443", CertPath, KeyPath, r))
 }
