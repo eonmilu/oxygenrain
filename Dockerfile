@@ -6,5 +6,4 @@ WORKDIR /app
 ADD oxygenrain /app
 ADD psql.cfg /psql.cfg
 
-
 ENTRYPOINT ["./oxygenrain"]
