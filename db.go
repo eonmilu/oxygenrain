@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 
 	_ "github.com/lib/pq"
@@ -14,6 +13,11 @@ const (
 	ConfigPath = "/cfg/psql.cfg"
 )
 
+const (
+	// LocalPostgresIP : IP used by the machine running postgres
+	LocalPostgresIP = "192.168.1.48"
+)
+
 type dbcfg struct {
 	User     string
 	Password string
@@ -21,12 +25,10 @@ type dbcfg struct {
 }
 
 func connectDb(cfg dbcfg) (*sql.DB, error) {
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s", cfg.User, cfg.Password, cfg.Database)
+	// TODO: configure ssl mode
+	dbinfo := "postgres://" + cfg.User + ":" + cfg.Password + "@" + LocalPostgresIP + "/" + cfg.Database + "?sslmode=disable"
 	db, err := sql.Open("postgres", dbinfo)
-	if err != nil {
-		return nil, err
-	}
-	return db, nil
+	return db, err
 }
 
 func (cfg *dbcfg) getDbCredentials() error {
