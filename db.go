@@ -11,7 +11,7 @@ import (
 
 const (
 	// ConfigPath : path to the user, password and database
-	ConfigPath = "/psql.cfg"
+	ConfigPath = "/cfg/psql.cfg"
 )
 
 type dbcfg struct {
