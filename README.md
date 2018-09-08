@@ -1,12 +1,13 @@
 # oxygenrain [![Build status](https://travis-ci.org/eonmilu/oxygenrain.svg?branch=master)](https://travis-ci.org/eonmilu/oxygenrain/)
 
-Backend and fronted of the oxygenrain.com server.
+Backend and frontend of the oxygenrain.com server.
 
 ## Running
 
-Execute `go run main.go` as root or build a binary as explained in the Compilation section
+Run a Postgres Docker container, then run `docker run -it --rm -p 8080:8080 -p 8443:8443 oxygenrain`
 
 ## Compilation
 
 Run `go build` for a permanent binary.
-Then run the binary as root.
+Then run `docker build -t YourImageName .`
+Now read the Running section.
