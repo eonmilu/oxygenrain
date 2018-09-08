@@ -3,7 +3,10 @@ LABEL maintainer="Miguel Vila <eonmilu@gmail.com>"
 
 WORKDIR /app
 
+EXPOSE 8080 8443
+
 ADD oxygenrain /app
-ADD psql.cfg /psql.cfg
+ADD public /public
+ADD cfg /cfg
 
 ENTRYPOINT ["./oxygenrain"]
