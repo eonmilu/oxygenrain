@@ -1,4 +1,4 @@
-FROM debian
+FROM alpine
 LABEL maintainer="Miguel Vila <eonmilu@gmail.com>"
 
 WORKDIR /app
