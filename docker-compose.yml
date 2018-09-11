@@ -1,0 +1,17 @@
+version: '2'
+services:
+  oxygenrain:
+    build: .
+    security_opt:
+      - seccomp:unconfined
+    entrypoint: dlv debug local/eonmilu/oxygenrain -l 0.0.0.0:2345 --headless=true --log=true -- server
+    volumes:
+      - .:/opt/go/src/local/eonmilu/oxygenrain
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "2345:2345"
+    expose:
+      - "8080"
+      - "8443"
+      - "2345"
