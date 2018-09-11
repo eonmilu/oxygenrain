@@ -7,8 +7,9 @@ ADD . /opt/go/src/local/eonmilu/oxygenrain
 WORKDIR /opt/go/src/local/eonmilu/oxygenrain
 
 RUN go get github.com/derekparker/delve/cmd/dlv
-RUN go build -o main main.go
+RUN go get github.com/eonmilu/goyt
+RUN go get github.com/gorilla/mux
 
-EXPOSE 8080 8443
+RUN go build
 
-CMD ["./main"]
+CMD ["./oxygenrain"]
