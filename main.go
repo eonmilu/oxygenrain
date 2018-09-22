@@ -11,11 +11,11 @@ import (
 
 const (
 	// FilePath : path to the files to be served
-	FilePath = "/public/"
+	FilePath = "public/"
 	// CertPath : path to the TLS certificate file
-	CertPath = "/cfg/ssl/cert1.pem"
+	CertPath = "cfg/ssl/cert1.pem"
 	// KeyPath : path to the TLS private key file
-	KeyPath = "/cfg/ssl/privkey1.pem"
+	KeyPath = "cfg/ssl/privkey1.pem"
 	// RootDomain : A-record of the domain
 	RootDomain = "oxygenrain.com"
 )

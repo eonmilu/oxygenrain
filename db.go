@@ -10,7 +10,7 @@ import (
 
 const (
 	// ConfigPath : path to the user, password and database
-	ConfigPath = "/cfg/psql.cfg"
+	ConfigPath = "cfg/psql.cfg"
 )
 
 const (
