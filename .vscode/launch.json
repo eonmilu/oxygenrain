@@ -7,9 +7,9 @@
            "request": "launch",
            "mode": "remote",
            "remotePath": "/go/src/github.com/eonmilu/oxygenrain",
+           "program":"${workspaceFolder}",
            "port": 8903,
            "host": "192.168.1.48",
-           "program": "${workspaceRoot}",
            "env": {},
            "args": []
        }
