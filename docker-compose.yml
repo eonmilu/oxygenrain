@@ -1,0 +1,28 @@
+version: "3.4"
+services:
+  yourtime:
+    build: .
+    entrypoint: dlv debug . --headless --api-version=2 --log --listen=0.0.0.0:8903
+    privileged: true
+    security_opt:
+     - seccomp:unconfined
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+      - "8903:8903"
+    expose:
+      - "8080"
+      - "8443"
+      - "8903"
+  postgres:
+    image: postgres
+    volumes:
+    - PostgresData
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - "docker.env"
+volumes:
+  PostgresData:
+    external: true
