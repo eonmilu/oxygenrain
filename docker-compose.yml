@@ -1,5 +1,33 @@
 version: "3.4"
 services:
+  nginx:
+    image: eonmilu/nginx
+    volumes:
+      - type: volume
+        source: letsencrypt_certs
+        target: /etc/nginx/certs
+      - type: volume
+        source: letsencrypt_www
+        target: /var/www/letsencrypt
+    links:
+      - yourtime:oxygenrain.com
+    ports:
+      - "80:80"
+      - "443:443"
+    expose:
+      - "80"
+      - "443"
+    restart: always
+  letsencrypt:
+    image: eonmilu/letsencrypt
+    command: /bin/true
+    volumes:
+      - type: volume
+        source: letsencrypt_certs
+        target: /etc/letsencrypt
+      - type: volume
+        source: letsencrypt_www
+        target: /var/www/letsencrypt
   yourtime:
     build: .
     entrypoint: dlv debug . --headless --api-version=2 --log --listen=0.0.0.0:8903
@@ -23,6 +51,9 @@ services:
       - "5432:5432"
     env_file:
       - "docker.env"
+
 volumes:
   PostgresData:
     external: true
+  letsencrypt_certs: ~
+  letsencrypt_www: ~
