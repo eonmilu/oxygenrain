@@ -12,12 +12,6 @@ import (
 const (
 	// FilePath : path to the files to be served
 	FilePath = "public/"
-	// CertPath : path to the TLS certificate file
-	CertPath = "cfg/ssl/cert1.pem"
-	// KeyPath : path to the TLS private key file
-	KeyPath = "cfg/ssl/privkey1.pem"
-	// RootDomain : A-record of the domain
-	RootDomain = "oxygenrain.com"
 )
 
 const (
@@ -50,12 +44,7 @@ func init() {
 
 func main() {
 	defer DB.Close()
-	// Redirect the incoming HTTP request to HTTPS
-	go http.ListenAndServe(":8080", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		target := RootDomain + r.URL.RequestURI()
-		http.Redirect(w, r, "https://"+target, http.StatusMovedPermanently)
-		log.Printf("REDIRECT %s FROM %s TO %s", r.RemoteAddr, "http://"+target, "https://"+target)
-	}))
+
 	r := mux.NewRouter()
 	r.HandleFunc("/yourtime/search", yourtime.CreateUsers(yourtime.Search))
 	r.HandleFunc("/yourtime/insert", yourtime.CreateUsers(yourtime.Insert))
@@ -65,5 +54,5 @@ func main() {
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(FilePath)))
 
-	log.Panic(http.ListenAndServeTLS(":8443", CertPath, KeyPath, r))
+	log.Panic(http.ListenAndServe(":8080", r))
 }
