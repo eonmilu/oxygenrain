@@ -3,3 +3,4 @@ cfg/
 debug
 goyt/
 docker.env
+.vscode/
