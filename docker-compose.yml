@@ -9,8 +9,6 @@ services:
       - type: volume
         source: letsencrypt_www
         target: /var/www/letsencrypt
-    links:
-      - yourtime:oxygenrain.com
     ports:
       - "80:80"
       - "443:443"
