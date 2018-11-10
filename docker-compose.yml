@@ -43,8 +43,12 @@ services:
   postgres:
     image: postgres
     volumes:
-    - PostgresData
+    - type: volume
+      source: PostgresData
+      target: /var/lib/postgresql
     container_name: postgres
+    expose:
+      - "5432"
     ports:
       - "5432:5432"
     env_file:
@@ -52,6 +56,5 @@ services:
 
 volumes:
   PostgresData:
-    external: true
   letsencrypt_certs: ~
   letsencrypt_www: ~
