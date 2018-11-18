@@ -7,23 +7,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Your Time Google Sign-In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="google.css" />
 </head>
 
 <body>
-    <div style="display:flex;justify-content:center;align-items:center;">
+    <div style="display:flex;justify-content:center;align-items:center;text-align:center">
         <div id="wrapper">
             <div id="main" style="display:flex;justify-content:center;align-items:center;">
                 <img src="logo.svg" alt="Logo" width="10%" height="10%">
                 <h1 id="title">Your Time: Anti Clickbait</h1>
             </div>
-            <span id="description">A web extension that shows community-submitted, important timemarks on YouTube videos.</span>
-            <div style="display:flex;justify-content:center;align-items:center;margin: 3% 3% 0% 3%;">
-                <button style="width: 8%;" type="button" class="btn btn-light" id="signout" onclick="onSignOut();">Sign out</button>
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                <!-- <div style="background-color: grey; height: 36px; width: 120px;"> </div> -->
-            </div>
+            <span id="description">A web extension that shows community-submitted, important timemarks on YouTube
+                videos.</span>
+            <br>
+            <span>Enter your
+                <a style="text-decoration: none; color: hsl(206.1, 79.3%, 52.7%);" target="_blank" href="http://support.google.com/youtube/answer/3250431">
+                    YouTube <strong>channel</strong> ID
+                </a>:
+                <br>
+                <input placeholder="YouTube channel ID" class="form-control" type="text" name="youtube-id" id="youtube-id">
+                <br>
+                <div style="margin: 1%;" id="input-error-msg">
+                    <span>Please input your YouTube channel ID to continue.</span>
+                    <br>
+                    <i style="font-size: small">
+                        (All channel IDs are case-sensitive and start with "UC")
+                    </i>
+                </div>
+                <div style="display:flex;justify-content:center;align-items:center;margin: 1% 3% 0% 3%;">
+                    <button style="width: 8%;" type="button" class="btn btn-light" id="signout" onclick="onSignOut();">Sign
+                        out</button>
+                    <div id="gsing-in" class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <!-- <div style="background-color: grey; height: 36px; width: 120px;"> </div> -->
+                </div>
         </div>
     </div>
     </div>

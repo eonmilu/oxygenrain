@@ -11,11 +11,29 @@ const STATUS_CODE = {
 
 
 $("#signout").prop("disabled", true);
+// Simple validation of channel ID (syntax check only)
+$("#youtube-id").on("input", function () {
+    var value = $("#youtube-id").val();
+    // All youtube IDs start with UC
+    if (value.length >= 2) {
+        if (!value.startsWith("UC")) {
+            $("#youtube-id").val("");
+            $("gsing-in").hide();
+        } else {
+            $("gsing-in").show();
+        }
+    }
+})
 
 // TODO: delete token serverside if the user changes account without clicking signOut
 function onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
     var idToken = googleUser.getAuthResponse().id_token;
+    const youtubeID = $("#youtube-id").val();
+    if (youtubeID == "") {
+        $("#youtube-id").attr("style", "box-shadow: 0px 0px 4px #ff0000");
+        return
+    }
 
     $.ajax({
         method: "POST",
@@ -23,6 +41,7 @@ function onSignIn(googleUser) {
         contentType: "application/x-www-form-urlencoded",
         data: {
             idtoken: idToken,
+            youtubeid: youtubeID
         },
         timeout: DEFAULT_TIMEOUT
     }).done((response) => {
