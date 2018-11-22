@@ -14,11 +14,6 @@ const (
 	FilePath = "public/"
 )
 
-const (
-	authTokenURL   = "https://www.googleapis.com/oauth2/v3/tokeninfo?"
-	googleclientID = "817145568720-9p70ci9se6tpvn4qh9vbldh16gssfs3v.apps.googleusercontent.com"
-)
-
 var (
 	// DB is the database object representing the Your Time database
 	DB       *sql.DB
@@ -36,9 +31,7 @@ func init() {
 		log.Panic(err)
 	}
 	yourtime = goyt.YourTime{
-		AuthTokenURL:   authTokenURL,
-		GoogleClientID: googleclientID,
-		DB:             DB,
+		DB: DB,
 	}
 }
 
