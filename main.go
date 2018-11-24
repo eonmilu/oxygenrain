@@ -44,7 +44,8 @@ func main() {
 	r.HandleFunc("/yourtime/votes", yourtime.CreateUsers(yourtime.Votes))
 	r.HandleFunc("/yourtime/auth/validate", yourtime.CreateUsers(yourtime.ValidateAuth))
 	r.HandleFunc("/yourtime/auth/remove", yourtime.CreateUsers(yourtime.RemoveAuth))
-	r.HandleFunc("/yourtime/auth/tokens", yourtime.CreateUsers(yourtime.CreateVerificationToken))
+	r.HandleFunc("/yourtime/auth/tokens", yourtime.CreateUsers(yourtime.CreateVerifToken))
+	yourtime.removeOldVerifTokens()
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(FilePath)))
 
