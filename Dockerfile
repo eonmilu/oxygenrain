@@ -7,7 +7,7 @@ WORKDIR $GOPATH/src/github.com/eonmilu/oxygenrain
 EXPOSE 8080 8443 8903
 
 RUN mv goyt/ /go/src/github.com/eonmilu/goyt/
-RUN go get github.com/derekparker/delve/cmd/dlv github.com/gorilla/mux github.com/lib/pq
+RUN go get github.com/derekparker/delve/cmd/dlv github.com/gorilla/mux github.com/lib/pq github.com/dgrijalva/jwt-go
 
 RUN go build
 
