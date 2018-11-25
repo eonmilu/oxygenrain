@@ -33,8 +33,8 @@ func init() {
 		log.Panic(err)
 	}
 	yourtime = goyt.YourTime{
-		DB: DB,
-		JWTSecret: getJWTSecret()
+		DB:        DB,
+		JWTSecret: getJWTSecret(),
 	}
 }
 
@@ -48,7 +48,7 @@ func main() {
 	r.HandleFunc("/yourtime/auth/validate", yourtime.CreateUsers(yourtime.ValidateAuth))
 	r.HandleFunc("/yourtime/auth/remove", yourtime.CreateUsers(yourtime.RemoveAuth))
 	r.HandleFunc("/yourtime/auth/tokens", yourtime.CreateUsers(yourtime.CreateVerifToken))
-	yourtime.removeOldVerifTokens()
+	go yourtime.RemoveOldVerifTokens()
 
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir(FilePath)))
 
