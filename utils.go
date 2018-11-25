@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 
 	_ "github.com/lib/pq"
@@ -41,4 +42,13 @@ func (cfg *dbcfg) getDbCredentials() error {
 		return err
 	}
 	return nil
+}
+
+func getJWTSecret() string {
+	raw, err := ioutil.ReadFile(JWTSecretPath)
+	if err != nil {
+		fmt.Printf("%s", err)
+		return ""
+	}
+	return string(raw)
 }
