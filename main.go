@@ -12,6 +12,8 @@ import (
 const (
 	// FilePath : path to the files to be served
 	FilePath = "public/"
+	// JWTSecretPath is the path to the JWT secret
+	JWTSecretPath = "cfg/jwt.cfg"
 )
 
 var (
@@ -32,6 +34,7 @@ func init() {
 	}
 	yourtime = goyt.YourTime{
 		DB: DB,
+		JWTSecret: getJWTSecret()
 	}
 }
 
