@@ -1,4 +1,5 @@
 const VALIDATE_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/validate";
+const GET_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/tokens";
 const REMOVE_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/remove"
 const DEFAULT_TIMEOUT = 1500;
 const STATUS_CODE = {
@@ -9,21 +10,62 @@ const STATUS_CODE = {
     OK: "240"
 };
 
-
-$("#signout").prop("disabled", true);
-// Simple validation of channel ID (syntax check only)
-$("#youtube-id").on("input", function () {
-    var value = $("#youtube-id").val();
-    // All youtube IDs start with UC
-    if (value.length >= 2) {
-        if (!value.startsWith("UC")) {
-            $("#youtube-id").val("");
-            $("gsing-in").hide();
-        } else {
-            $("gsing-in").show();
-        }
+function onGetSecretCode() {
+    const youtubeID = $("#youtube-id").val();
+    if (!youtubeID.startsWith("UC")) {
+        $("#youtube-id").attr("style", "box-shadow: 0px 0px 4px #ff0000");
+        alert("Please enter a valid YouTube channel ID.")
+        return
     }
-})
+    $("#loader").show();
+
+    $.ajax({
+        method: "GET",
+        url: GET_TOKEN_URL,
+        data: {
+            channelid: youtubeID
+        },
+        timeout: DEFAULT_TIMEOUT
+    }).done(response => {
+        $("#loader").hide();
+        if (response == STATUS_CODE.ERROR || response == STATUS_CODE.BAD_LOGIN) {
+            alert(`Unable to get a secret token. Response: ${response}`)
+            console.log(`Unable to get a secret token. Response: ${response}`)
+            return
+        }
+
+        Cookies.set("yourtime-channel-id", youtubeID);
+        $("#secret-code").val(response);
+        $("#on-secret-code").show();
+    }).fail((jqXHR, textStatus, error) => {
+        $("#loader").hide();
+        alert(`An error happened. ${error}`);
+        console.log(error, jqXHR, textStatus);
+    });
+}
+
+function onValidateChannel() {
+    const channelid = Cookies.get("yourtime-channel-id");
+    $.ajax({
+        method: "GET",
+        url: VALIDATE_TOKEN_URL,
+        data: {
+            channelid: channelid
+        },
+        timeout: DEFAULT_TIMEOUT
+    }).done(response => {
+        switch (response) {
+            case STATUS_CODE.BAD_LOGIN:
+                alert("The secret code was not in the description.")
+            case STATUS_CODE.ERROR:
+            default:
+                break;
+        }
+    }).fail((jqXHR, textStatus, error) => {
+        alert(`An error happened. ${error}`);
+        console.log(error, jqXHR, textStatus);
+    });
+}
 
 // TODO: delete token serverside if the user changes account without clicking signOut
 function onSignIn(googleUser) {
