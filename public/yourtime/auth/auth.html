@@ -34,9 +34,18 @@
                         (All channel IDs are case-sensitive and start with "UC")
                     </i>
                 </div>
-                <div style="display:flex;justify-content:center;align-items:center;margin: 1% 3% 0% 3%;">
-                    <button style="width: 8%;" type="button" class="btn btn-light" id="signout" onclick="onSignOut();">Sign
-                        out</button>
+                <div style="display:flex;justify-content:center;align-items:center;">
+                    <button type="button" class="btn btn-light" id="signout" onclick="onGetSecretCode();">Get secret code</button>
+                </div>
+                <img id="loader" src="loader.svg" alt="Loading..." width="5%" style="margin: 1%;" hidden>
+                <div id="on-secret-code" hidden>
+                    Your secret code is <strong id="secret-code"></strong>
+                    <br>
+                    Please put this code on your YouTube channel description and then click the button below. The code will expire in 24 hours.
+                    <br>
+                    Allow up to 5 minutes after changing your channel description so that YouTube has time to update the changes.
+                    You may delete the code from your description after succesful validation.
+                    <button onclick="onValidateChannel();">Validate channel</button>
                 </div>
         </div>
     </div>
