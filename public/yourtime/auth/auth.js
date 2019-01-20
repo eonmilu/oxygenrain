@@ -1,6 +1,6 @@
-const VALIDATE_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/validate";
-const GET_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/tokens";
-const REMOVE_TOKEN_URL = "https://oxygenrain.com/yourtime/auth/remove"
+const VALIDATE_TOKEN_URL = "https://xmi.lu/yourtime/auth/validate";
+const GET_TOKEN_URL = "https://xmi.lu/yourtime/auth/tokens";
+const REMOVE_TOKEN_URL = "https://xmi.lu/yourtime/auth/remove"
 const DEFAULT_TIMEOUT = 1500;
 const STATUS_CODE = {
     FOUND: "200",

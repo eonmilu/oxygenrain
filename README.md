@@ -1,6 +1,6 @@
 # oxygenrain [![Build status](https://travis-ci.org/eonmilu/oxygenrain.svg?branch=master)](https://travis-ci.org/eonmilu/oxygenrain/)
 
-Backend and frontend of the oxygenrain.com server.
+Backend and frontend of the xmi.lu server.
 
 ## Running
 
